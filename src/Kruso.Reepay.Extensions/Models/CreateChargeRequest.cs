@@ -19,6 +19,7 @@ namespace Kruso.Reepay.Extensions.Models
 		public CreateChargeRequest()
         {
 			Recurring = true;
+			Settle = true;
         }
 
 		public CreateChargeRequest(Order order) : this()

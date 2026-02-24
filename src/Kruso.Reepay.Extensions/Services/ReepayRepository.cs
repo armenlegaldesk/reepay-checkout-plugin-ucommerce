@@ -216,7 +216,7 @@ namespace Kruso.Reepay.Extensions.Services
 
 			var requestData = new CreateRefundRequest()
 			{
-				Invoice = payment.PurchaseOrder.OrderGuid.ToString(),
+				Invoice = payment.PurchaseOrder.OrderId.ToString(),
 				Amount = amount.ToCents()
 			};
 
@@ -242,7 +242,7 @@ namespace Kruso.Reepay.Extensions.Services
 				Amount = amount.ToCents()
 			};
 
-			return await _reepayGateway.SettleCharge(payment.PaymentMethod, payment.PurchaseOrder.OrderGuid.ToString(), requestData).ConfigureAwait(false);
+			return await _reepayGateway.SettleCharge(payment.PaymentMethod, payment.PurchaseOrder.OrderId.ToString(), requestData).ConfigureAwait(false);
 		}
 
 		public virtual async Task<ChargeObject> CancelCharge(Payment payment)
@@ -253,7 +253,7 @@ namespace Kruso.Reepay.Extensions.Services
 				return null;
 			}
 
-			return await _reepayGateway.CancelCharge(payment.PaymentMethod, payment.PurchaseOrder.OrderGuid.ToString()).ConfigureAwait(false);
+			return await _reepayGateway.CancelCharge(payment.PaymentMethod, payment.PurchaseOrder.OrderId.ToString()).ConfigureAwait(false);
 		}
 
 		public virtual Task<ChargeObject> CreateCharge(Payment payment, string source)
@@ -568,7 +568,7 @@ namespace Kruso.Reepay.Extensions.Services
 
 			return new Order()
 			{
-				Handle = order.OrderGuid.ToString(),
+				Handle = order.OrderId.ToString(),
 				Amount = amount.ToCents(),
 				Currency = order.BillingCurrency?.ISOCode ?? "DKK",
 				Customer = GetReepayCustomer(payment),

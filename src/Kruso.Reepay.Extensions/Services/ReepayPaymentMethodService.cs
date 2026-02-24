@@ -402,12 +402,12 @@ namespace Kruso.Reepay.Extensions.Services
         protected void EnsurePaymentIsValid(Payment payment, out bool? isPaymentValid, bool isSettle = false, ChargeObject chargeObject = null)
 		{
             _logger.LogInfo($"ProcessCallback is validating the payment");
-            isPaymentValid = _reepayRepository.PaymentIsValid(payment.PaymentMethod, payment.PurchaseOrder.OrderGuid.ToString(), isSettle, chargeObject).ConfigureAwait(false).GetAwaiter().GetResult();
+            isPaymentValid = _reepayRepository.PaymentIsValid(payment.PaymentMethod, payment.PurchaseOrder.OrderId.ToString(), isSettle, chargeObject).ConfigureAwait(false).GetAwaiter().GetResult();
             var endTime = DateTime.UtcNow.AddSeconds(60);
             while (isPaymentValid == null && endTime > DateTime.UtcNow)
             {
                 Thread.Sleep(1000);
-                isPaymentValid = _reepayRepository.PaymentIsValid(payment.PaymentMethod, payment.PurchaseOrder.OrderGuid.ToString(), isSettle).ConfigureAwait(false).GetAwaiter().GetResult();
+                isPaymentValid = _reepayRepository.PaymentIsValid(payment.PaymentMethod, payment.PurchaseOrder.OrderId.ToString(), isSettle).ConfigureAwait(false).GetAwaiter().GetResult();
             }
         }
 
@@ -438,12 +438,12 @@ namespace Kruso.Reepay.Extensions.Services
         protected void EnsureChargeIsCancelled(Payment payment, out bool? isCancelSuccessful)
 		{
             _logger.LogInfo($"ProcessCallback is validating the payment cancellation");
-            isCancelSuccessful = _reepayRepository.PaymentIsCancelled(payment.PaymentMethod, payment.PurchaseOrder.OrderGuid.ToString()).ConfigureAwait(false).GetAwaiter().GetResult();
+            isCancelSuccessful = _reepayRepository.PaymentIsCancelled(payment.PaymentMethod, payment.PurchaseOrder.OrderId.ToString()).ConfigureAwait(false).GetAwaiter().GetResult();
             var endTime = DateTime.UtcNow.AddSeconds(60);
             while (isCancelSuccessful == null && endTime > DateTime.UtcNow)
             {
                 Thread.Sleep(1000);
-                isCancelSuccessful = _reepayRepository.PaymentIsCancelled(payment.PaymentMethod, payment.PurchaseOrder.OrderGuid.ToString()).ConfigureAwait(false).GetAwaiter().GetResult();
+                isCancelSuccessful = _reepayRepository.PaymentIsCancelled(payment.PaymentMethod, payment.PurchaseOrder.OrderId.ToString()).ConfigureAwait(false).GetAwaiter().GetResult();
             }
         }
 

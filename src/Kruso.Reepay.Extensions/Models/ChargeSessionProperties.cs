@@ -27,7 +27,7 @@ namespace Kruso.Reepay.Extensions.Models
 
 		public ChargeSessionProperties() : base()
         {
-
+			Settle = true;
         }
 	}
 }
