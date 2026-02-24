@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Kruso.Reepay.Extensions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This is a customized version of the OriginalProject by Kruso")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Legaldesk ApS")]
 [assembly: AssemblyProduct("Kruso.Reepay.Extensions")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.0.24015")]
-[assembly: AssemblyVersion("1.0.0.24015")]
-[assembly: AssemblyFileVersion("1.0.0.24015")]
+[assembly: AssemblyVersion("1.5.0.24015")]
+[assembly: AssemblyFileVersion("1.5.0.24015")]
