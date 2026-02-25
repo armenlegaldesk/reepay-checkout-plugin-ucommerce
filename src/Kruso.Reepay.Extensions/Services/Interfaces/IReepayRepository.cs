@@ -17,7 +17,8 @@ namespace Kruso.Reepay.Extensions.Services.Interfaces
 		Uri GetErrorUrl(PaymentMethod paymentMethod);
 		Uri GetCancelUrl(PaymentMethod paymentMethod, PurchaseOrder order = null);
 		Task<RefundObject> CreateRefund(Payment payment);
-		Task<ChargeObject> SettleCharge(Payment payment);
+		Task<ChargeObject> GetCharge(Payment payment);
+        Task<ChargeObject> SettleCharge(Payment payment);
 		Task<ChargeObject> CancelCharge(Payment payment);
 		Task<ChargeObject> CreateCharge(Payment payment, string source);
 		Task<CustomerObject> CreateCustomer(PaymentMethod paymentMethod, string customerHandle, string email, string address, string address2, string city, string country, string phone, string company, string vat, string first_name, string last_name, string postal_code);

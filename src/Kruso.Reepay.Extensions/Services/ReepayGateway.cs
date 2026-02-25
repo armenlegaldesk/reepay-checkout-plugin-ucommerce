@@ -14,8 +14,8 @@ namespace Kruso.Reepay.Extensions.Services
 {
 	public class ReepayGateway : IReepayGateway, IDisposable
 	{
-		private const string ApiSessionUrl = "https://checkout-api.reepay.com/v1/session/";
-		private const string BaseApiUrl = "https://api.reepay.com/v1/";
+		private const string ApiSessionUrl = "https://checkout-api.frisbii.com/v1/session/";
+		private const string BaseApiUrl = "https://api.frisbii.com/v1/";
 		private const string ChargeUrl = BaseApiUrl + "charge";
 		private const string SubscriptionUrl = BaseApiUrl + "subscription/";
 		private const string RefundUrl = BaseApiUrl + "refund";

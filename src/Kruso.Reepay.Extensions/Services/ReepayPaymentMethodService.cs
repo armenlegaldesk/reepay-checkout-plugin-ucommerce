@@ -225,24 +225,29 @@ namespace Kruso.Reepay.Extensions.Services
         {
             try
             {
-                var settleChargeResult = _reepayRepository.SettleCharge(payment).ConfigureAwait(false).GetAwaiter().GetResult();
-                if (settleChargeResult?.State == ChargeStateEnum.settled.ToString())
+                // This line should be executed only if AutoSettled is enabled
+                var chargeResult = _reepayRepository.GetCharge(payment).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                // This line should be executed only if AutoSettled is disabled
+                //var chargeResult = _reepayRepository.SettleCharge(payment).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (chargeResult?.State == ChargeStateEnum.settled.ToString())
                 {
-                    status = $"Status: {settleChargeResult.State}, {settleChargeResult.Amount / 100m:N2}";
+                    status = $"Status: {chargeResult.State}, {chargeResult.Amount / 100m:N2}";
                     return true;
                 }
 
-                if (settleChargeResult?.State == ChargeStateEnum.failed.ToString() || settleChargeResult?.State == ChargeStateEnum.cancelled.ToString())
+                if (chargeResult?.State == ChargeStateEnum.failed.ToString() || chargeResult?.State == ChargeStateEnum.cancelled.ToString())
                 {
-                    status = $"Status: {settleChargeResult.State}, {settleChargeResult.Error_state} {settleChargeResult.Error}";
-                    _logger.LogWarning($"Settle failed for order {payment?.PurchaseOrder?.OrderId}, error: {settleChargeResult.Error_state} {settleChargeResult.Error}");
+                    status = $"Status: {chargeResult.State}, {chargeResult.Error_state} {chargeResult.Error}";
+                    _logger.LogWarning($"Settle failed for order {payment?.PurchaseOrder?.OrderId}, error: {chargeResult.Error_state} {chargeResult.Error}");
                     return false;
                 }
 
                 EnsurePaymentIsValid(payment, out bool? isSettleSuccessful, true);
                 if (isSettleSuccessful == true)
                 {
-                    status = $"Status: {ChargeStateEnum.settled}, {settleChargeResult?.Amount / 100m:N2}";
+                    status = $"Status: {ChargeStateEnum.settled}, {chargeResult?.Amount / 100m:N2}";
                     return true;
                 }
 

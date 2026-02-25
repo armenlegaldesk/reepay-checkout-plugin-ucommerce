@@ -223,7 +223,19 @@ namespace Kruso.Reepay.Extensions.Services
 			return await _reepayGateway.CreateRefund(payment.PaymentMethod, requestData).ConfigureAwait(false);
 		}
 
-		public virtual async Task<ChargeObject> SettleCharge(Payment payment)
+        public async Task<ChargeObject> GetCharge(Payment payment)
+		{
+            if (payment == null || payment.PurchaseOrder == null)
+            {
+                _logger.LogWarning("Payment or order is empty, cannot get order id");
+                return null;
+            }
+
+            return await _reepayGateway.GetCharge(payment.PaymentMethod, payment.PurchaseOrder.OrderId.ToString()).ConfigureAwait(false);
+        }
+
+
+        public virtual async Task<ChargeObject> SettleCharge(Payment payment)
 		{
 			if (payment == null || payment.PurchaseOrder == null)
 			{
